@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-
 filePath = r".\{}.csv".format("atm")
 
 
@@ -20,6 +19,7 @@ def validateDetails2(**details):
 
 def validateLogin(**details):
     data = pd.read_csv(filePath, dtype=str)
+
     storeBool = True
     userPosition = None
     print("")

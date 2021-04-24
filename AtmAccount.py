@@ -1,11 +1,17 @@
-from Validate import validateDetails2, validateLogin
+import os
 import random
-from ATM import welcome
 import sys
+
 import pandas as pd
 
+from ATM import welcome
+from Validate import validateDetails2, validateLogin
 
 filePath = r".\{}.csv".format("atm")
+if not os.path.isfile(filePath) or os.path.getsize(filePath) == 0:
+    df = pd.DataFrame({"firstName": [], "lastName": [], "email": [], "address": [], "accountNumber": [],
+                       "password": [], "contact": []})
+    df.to_csv(filePath, index=False)
 
 
 def generateAccountNumber():
@@ -66,8 +72,11 @@ def login():
     else:
         retrieveAccount = input("Retrieve account number (yes/no): ")
         if retrieveAccount == 'yes':
-            retrieveAccountNumber()
-            login()
+            suggestion = retrieveAccountNumber()
+            if suggestion:
+                login()
+            else:
+                register()
     return main()
 
 
@@ -80,7 +89,8 @@ def retrieveAccountNumber():
         getAccount = data.loc[pos, "accountNumber"]
         print("Your account number is: {}".format(getAccount))
     else:
-        print("Try again")
+        print("Register an account!")
+    return boolValue
 
 
 def main():

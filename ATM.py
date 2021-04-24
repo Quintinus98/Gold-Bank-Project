@@ -1,14 +1,8 @@
 import pandas as pd
-import os
 import sys
 
 
 filePath = r".\{}.csv".format("atm")
-
-if not os.path.isfile(filePath) or os.path.getsize(filePath) == 0:
-    df = pd.DataFrame({"firstName": [], "lastName": [], "email": [], "address": [], "accountNumber": [],
-                       "password": [], "contact": []})
-    df.to_csv(filePath, index=False)
 
 
 def welcome(pos):
@@ -104,6 +98,17 @@ def balance(pos):
     data = pd.read_csv(filePath, dtype={'contact': str})
     accountBalance = data.loc[pos, 'Balance']
     print("\nCurrent Balance: N" + str(accountBalance))
+
+    response = input("\nWould you like to perform another transaction? (yes/no): ")
+
+    if response in ['y', 'yes', 'Yes']:
+        welcome(pos)
+    elif response in ['n', 'no', 'No']:
+        print("You have been logged out!")
+        from AtmAccount import main
+        main()
+    else:
+        sys.exit()
 
 
 def transfer(pos):

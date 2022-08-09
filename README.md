@@ -1,5 +1,6 @@
 # Gold-Bank-App
-Performs some tasks like:
+
+**Performs some tasks like:**
 1. Registration
 2. Login
 3. Deposits
